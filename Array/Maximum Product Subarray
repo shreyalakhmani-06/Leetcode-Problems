@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>pos_dp(n,0),neg_dp(n,0);
+        pos_dp[0]=nums[0],neg_dp[0]=nums[0];
+        int ans=nums[0];
+        for(int i=1;i<n;i++){
+            if(nums[i]>=0){
+                pos_dp[i]=max(nums[i],pos_dp[i-1]*nums[i]);
+                neg_dp[i]=min(nums[i],neg_dp[i-1]*nums[i]);
+            }
+            else{
+                pos_dp[i]=max(nums[i],neg_dp[i-1]*nums[i]);
+                neg_dp[i]=min(nums[i],pos_dp[i-1]*nums[i]);
+            }
+            ans=max(ans,pos_dp[i]);
+        }
+        return ans;
+    }
+};
