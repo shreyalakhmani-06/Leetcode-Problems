@@ -1,0 +1,13 @@
+vector<int> Smallestonleft(int arr[], int n) {
+    set<int>seen;
+    vector<int>ans(n,-1);
+    for(int i=0;i<n;i++){
+        auto it=seen.lower_bound(arr[i]);
+        if(it!=seen.begin()){
+            it--;
+            ans[i]=*it;
+        }
+        seen.insert(arr[i]);
+    }
+    return ans;
+}
