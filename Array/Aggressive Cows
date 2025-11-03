@@ -1,0 +1,37 @@
+class Solution {
+  public:
+   bool canWeplace(vector<int>v,int dist,int cows){
+        int cnt=1,last=v[0];
+        int n=v.size();
+        for(int i=1;i<n;i++){
+            if(v[i]-last>=dist){
+                cnt++;
+                last=v[i];
+            }
+            if(cnt>=cows) return true;
+        }
+        return false;
+    }
+
+    int aggressiveCows(vector<int> &stalls, int k) {
+        int cows = k;
+        sort(stalls.begin(),stalls.end());
+        int n=stalls.size();
+        int maxi=INT_MIN,mini=INT_MAX;
+        for(int i=0;i<n;i++){
+            maxi=max(maxi,stalls[i]);
+            mini=min(mini,stalls[i]);
+        }
+        int low=1,high=maxi-mini;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(canWeplace(stalls,mid,cows)==true){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return high;
+    }
+};
