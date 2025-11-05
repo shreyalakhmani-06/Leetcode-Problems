@@ -1,0 +1,22 @@
+class Solution {
+  public:
+    char getMaxOccuringChar(string& s) {
+        int n=s.size();
+        unordered_map<char,int>map;
+        for(int i=0;i<n;i++){
+            map[s[i]]++;
+        }
+        int maxi=INT_MIN;
+        char ans='a';
+        for(auto pair:map){
+            if(pair.second>maxi){
+                maxi=pair.second;
+                ans=pair.first;
+            }
+            else if (pair.second == maxi && pair.first < ans) {
+                ans = pair.first; 
+            }
+        }
+        return ans;
+    }
+};
