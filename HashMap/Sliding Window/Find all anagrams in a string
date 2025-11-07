@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        int req=p.size();
+        vector<int>ans;
+        vector<int>freq(128,0);
+        for(int i=0;i<p.size();i++){
+            freq[p[i]]++;
+        }
+        int i=0,j=0;
+        while(j<s.size()){
+            if(freq[s[j]]>0){
+                req--;
+            }
+            freq[s[j]]--;
+            if(j-i+1==p.size()){
+                if(req==0){
+                    ans.push_back(i);
+                }
+                if(freq[s[i]]>=0){
+                    req++;
+                }
+                freq[s[i]]++;
+                i++;
+            }
+            j++;
+        }
+        return ans;
+    }
+};
