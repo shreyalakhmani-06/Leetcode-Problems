@@ -1,0 +1,22 @@
+class Solution {
+  public:
+    int maxLength(vector<int>& arr) {
+        int n=arr.size();
+        unordered_map<int,int>mp;
+        int pre=0;
+        int maxi=0;
+        mp[0]=-1;
+        for(int i=0;i<n;i++){
+            pre+=arr[i];
+            if(mp.find(pre)!=mp.end()){
+                int prev=mp[pre];
+                int len=i-prev;
+                maxi=max(maxi,len);
+            }
+            else{
+                mp[pre]=i;
+            }
+        }
+        return maxi;
+    }
+};
