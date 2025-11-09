@@ -1,0 +1,15 @@
+class Solution {
+  public:
+    int countSetBits(int n) {
+        if(n==0){
+            return 0;
+        }
+        int x=log2(n);
+        int a=x*(1<<(x-1));
+        
+        int b=n-(1<<x)+1;
+        
+        int c=countSetBits(n-(1<<x));
+        return a+b+c;
+    }
+};
