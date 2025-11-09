@@ -1,0 +1,25 @@
+class Solution {
+public:
+const int MOD=1337;
+int Pow(int b,int x){
+    int ans=1;
+    b=b % MOD;
+    while(x){
+        if(x&1){
+            ans=(ans*b) % MOD;
+        }
+        b=b*b % MOD;
+        x>>=1;
+    }
+    return ans;
+}
+    int superPow(int a, vector<int>& b) {
+        if(a==1 || b.size()==0){
+            return 1;
+        }
+        int n=b.size();
+        int last=b[n-1];
+        b.pop_back();
+        return Pow(superPow(a,b),10)*Pow(a,last) % MOD;
+    }
+};
