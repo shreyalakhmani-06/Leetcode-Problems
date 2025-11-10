@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void gen_par(int open,int cl,vector<string> &v,string op){
+        if(open==0 && cl==0){
+            v.push_back(op);
+            return;
+        }
+        if(open>0){
+            string op1=op;
+            op1.push_back('(');
+            gen_par(open-1,cl,v,op1);
+        }
+        if(open<cl){
+            string op2=op;
+            op2.push_back(')');
+            gen_par(open,cl-1,v,op2);
+        }
+        return;
+    }
+    vector<string> generateParenthesis(int n) {
+        int open=n;
+        int cl=n;
+        vector<string>v;
+        string op="";
+        gen_par(open,cl,v,op);
+        return v;
+    }
+};
