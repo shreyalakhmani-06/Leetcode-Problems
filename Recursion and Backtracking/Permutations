@@ -1,0 +1,19 @@
+class Solution {
+public:
+void generate_all_permut(vector<int> &nums,int ind,vector<vector<int>> &result){
+    if(ind==nums.size()){
+        result.push_back(nums);
+        return;
+    }
+    for(int i=ind;i<nums.size();i++){
+        swap(nums[ind],nums[i]);
+        generate_all_permut(nums,ind+1,result);
+        swap(nums[ind],nums[i]);
+    }
+}
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>ans;
+        generate_all_permut(nums,0,ans);
+        return ans;
+    }
+};
