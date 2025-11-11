@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void dfs(vector<vector<int>>&ls,vector<int>&visited,int node){
+        visited[node]=1;
+        for(auto it:ls[node]){
+            if(!visited[it]){
+                dfs(ls,visited,it);
+            }
+        }
+    }
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        int num=edges.size();
+        vector<int>visited(n,0);
+        vector<vector<int>>ls(n);
+        for(int i=0;i<num;i++){
+            int a=edges[i][0];
+            int b=edges[i][1];
+            ls[a].push_back(b);
+            ls[b].push_back(a);
+        }
+        dfs(ls,visited,source);
+        if(visited[destination]!=0){
+            return true;
+        }
+        return false;
+    }
+};
