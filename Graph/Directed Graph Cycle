@@ -1,0 +1,36 @@
+class Solution {
+  public:
+  int dfs(int node,vector<vector<int>>adj,vector<int>&visited,vector<int>&current_path){
+      visited[node]=1;
+      current_path[node]=1;
+      for(int nbr:adj[node]){
+          if(!visited[nbr]){
+              int res=dfs(nbr,adj,visited,current_path);
+              if(res) return true;
+             }
+           else{
+                 if(current_path[nbr]==1){
+                 return true;
+                 }
+             }
+         }
+        current_path[node]=0;
+        return false;
+  }
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        vector<vector<int>> adj(V); 
+        for (const auto& edge : edges) {
+            adj[edge[0]].push_back(edge[1]);
+        }
+        vector<int>visited(V),current_path(V);
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                bool ans=dfs(i,adj,visited,current_path);
+                if(ans==true){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
