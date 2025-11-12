@@ -1,0 +1,29 @@
+class Solution {
+public:
+int rob1(vector<int>&nums){
+    int n=nums.size();
+    vector<int>dp(n,0);
+    dp[0]=nums[0];
+    for(int i=1;i<n;i++){
+        int pick=nums[i];
+        if(i>1){
+            pick+=dp[i-2];
+        }
+        int not_pick=0+dp[i-1];
+        dp[i]=max(pick,not_pick);
+    }
+    return dp[n-1];
+}
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        if (n == 0) return 0;
+        if(n==1){
+            return nums[0];
+        }
+        vector<int>nums1(nums.begin(), nums.end()-1);
+        int first=rob1(nums1);
+        vector<int>nums2(nums.begin()+1,nums.end());
+        int last=rob1(nums2);
+        return max(first,last);
+    }
+};
