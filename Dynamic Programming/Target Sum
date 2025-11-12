@@ -1,0 +1,44 @@
+class Solution {
+public:
+int count_subset(vector<int>&nums,int sum){
+    const int mod = (int)1e9 + 7;
+    int n=nums.size();
+    vector<vector<int>>t(n+1,vector<int>(sum+1,0));
+    for(int i=0;i<=n;i++){
+        t[i][0]=1;
+    }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=sum;j++){
+            if(nums[i-1]==0){
+                t[i][j] = t[i - 1][j];
+            }
+            else if(nums[i-1]<=j){
+                t[i][j]=(t[i-1][j]+t[i-1][j-nums[i-1]])%mod;
+            }
+            else{
+                t[i][j]=t[i-1][j];
+            }
+        }
+    }
+    return t[n][sum];
+}
+    int findTargetSumWays(vector<int>& nums, int target) {
+        int n=nums.size();
+        const int mod = (int)1e9 + 7;
+        int sum=0;
+        int zeroes =0;
+        for(int i=0;i<n;i++){
+            if(nums[i]==0){
+                zeroes++;
+            }
+            else{
+                sum+=nums[i];
+            }
+        }
+        if((sum-target<0) || ((sum-target)%2!=0)){
+            return 0;
+        }
+        int result= count_subset(nums,(sum-target)/2);
+        return result * (1 << zeroes);
+    }
+};
